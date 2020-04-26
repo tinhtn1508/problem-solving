@@ -5,11 +5,10 @@ import (
 	"sort"
 )
 
-func threeSum(nums []int) [2][3]int {
-	var out [2][3]int
+func threeSum(nums []int) [][]int {
+	out := make([][]int, 0)
 	var i int = 0
 	sort.Ints(nums)
-	row := 0
 	for i < len(nums) {
 		num := nums[i]
 		start := i + 1
@@ -21,10 +20,7 @@ func threeSum(nums []int) [2][3]int {
 			} else if curr > -num {
 				end--
 			} else {
-				out[row][0] = num
-				out[row][1] = nums[start]
-				out[row][2] = nums[end]
-				row++
+				out = append(out, []int{num, nums[start], nums[end]})
 				oldStart := start
 				oldEnd := end
 				for start > end && nums[start] == nums[oldStart] {
