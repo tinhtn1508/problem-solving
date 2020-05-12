@@ -3,10 +3,7 @@ package main
 import "fmt"
 
 func isValid(s string) bool {
-	var mapping = make(map[string]string)
-	mapping[")"] = "("
-	mapping["}"] = "{"
-	mapping["]"] = "["
+	var mapping = map[string]string{")": "(", "}": "{", "]": "["}
 	var stack []string
 	for i := 0; i < len(s); i++ {
 		if val, ok := mapping[string(s[i])]; ok {
