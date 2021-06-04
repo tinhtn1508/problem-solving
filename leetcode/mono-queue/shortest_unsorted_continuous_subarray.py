@@ -37,3 +37,38 @@ def solution2(nums):
 
 print(solution2([2,6,4,8,10,9,15]))
 print(solution2([2,6,7,8,10,9,15]))
+
+'''
+Solution #3
+'''
+
+class Solution:
+    def difference(self, firstList: List[List[int]], secondList: List[List[int]]) -> List[List[int]]:
+        a = firstList
+        for i in secondList:
+            a = self.single(a, [i])
+        return a
+    
+    def single(self, avails, booked):
+        intervals = []
+        i, j = 0, 0
+        while i < len(avails) and j < len(booked):
+            lo = max(avails[i][0], booked[j][0])
+            hi = min(avails[i][1], booked[j][1])
+            if lo <= hi:
+                if lo == booked[j][0]:
+                    if avails[i][0] != booked[j][0]:
+                        intervals.append([avails[i][0], booked[j][0]])
+                if hi == booked[j][1]:
+                    if booked[j][1] != avails[i][1]:
+                        intervals.append([booked[j][1], avails[i][1]])
+            else:
+                intervals.append(avails[i])
+            if avails[i][1] < booked[j][1]:
+                i += 1
+            else:
+                j += 1
+        for t in range(i+1, len(avails)):
+            intervals.append(avails[t])
+        
+        return intervals
